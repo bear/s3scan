@@ -73,26 +73,39 @@ for o in rs:
             elif item.tag == 'Permission':
                 grantee['permission'].append(item.text)
 
-        buckets[o.name][grantee['name']] = grantee
+        if grantee['name'] not in buckets[o.name]:
+            buckets[o.name][grantee['name']] = []
+
+        buckets[o.name][grantee['name']].append((grantee['id'], grantee['permission']))
 
 for key in buckets:
-    bucket = buckets[key]
-    reads  = []
-    writes = []
+    bucket     = buckets[key]
+    reads      = []
+    writes     = []
+    reads_acp  = []
+    writes_acp = []
+
     for grantee in bucket:
         s = ''
-        permission = bucket[grantee]['permission']
-        if 'READ' in permission:
-            reads.append(grantee)
-        if 'WRITE' in permission:
-            writes.append(grantee)
+        for grantee_id, permission in bucket[grantee]:
+            if 'READ' in permission:
+                reads.append(grantee)
+            if 'WRITE' in permission:
+                writes.append(grantee)
+            if 'READ_ACP' in permission:
+                reads_acp.append(grantee)
+            if 'WRITE_ACP' in permission:
+                writes_acp.append(grantee)
 
-    s = '{0:>{1}} -- '.format(key, maxName)
-    if len(reads) + len(writes) == 0:
-        s += 'owner only'
-    else:
-        if len(writes) > 0:
-            s += 'Write: %s' % ','.join(writes)
-        if len(reads) > 0:
-            s += 'Read: %s' % ','.join(reads)
+    s = '{0:>{1}} --'.format(key, maxName)
+    t = '\n' + ' '*(maxName + 4)
+    if len(writes) > 0:
+        s += ' Write: %s;' % ','.join(writes)
+    if len(reads) > 0:
+        s += ' Read: %s;' % ','.join(reads)
+    if len(writes_acp) > 0:
+        s += t + 'ACP Write: %s' % ','.join(writes_acp)
+    if len(reads_acp) > 0:
+        s += t + 'ACP Read: %s' % ','.join(reads_acp)
+
     print s
