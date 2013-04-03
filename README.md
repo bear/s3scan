@@ -1,7 +1,7 @@
 s3scan
 ======
 
-scan s3 buckets for security issues
+Generate a report of all s3 buckets and their permissions
 
 Usage
 =====
@@ -28,5 +28,8 @@ be loaded and should contain:
 Requirements
 ============
 
-Python 2.6+  -- http://python.org
-Boto Library -- https://github.com/boto/boto
+Python 2.6+ 
+http://python.org
+
+Boto Library
+https://github.com/boto/boto
