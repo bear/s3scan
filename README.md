@@ -17,7 +17,7 @@ Usage
 
 Where the output format can be either 'text' or 'csv'
 
-If no paramters are given, the configuration file 's3scan.cfg' will
+If no parameters are given, the configuration file 's3scan.cfg' will
 be loaded and should contain:
 
     [aws]
