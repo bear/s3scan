@@ -1,3 +1,30 @@
+"""
+:copyright: (c) 2012 by Mike Taylor
+:license: BSD, see LICENSE for more details.
+
+Usage:
+
+  python s3scan.py
+
+  No parameters or options right now, just create an s3scan.cfg
+  with the following:
+
+    [aws]
+    access_key = YOUR_KEY_HERE
+    access_secret = YOUR_SECRETS_HERE
+
+"""
+
+VERSION = (0, 1, 0, '')
+
+__author__    = 'bear (Mike Taylor)'
+__contact__   = 'bear@bear.im'
+__copyright__ = 'Copyright 2013, Mike Taylor'
+__license__   = 'BSD 2-Clause'
+__site__      = 'https://github.com/bear/s3scan'
+__version__   = u'.'.join(map(str, VERSION[0:3])) + u''.join(VERSION[3:])
+
+
 import os
 import ConfigParser
 
