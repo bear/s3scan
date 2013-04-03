@@ -6,11 +6,17 @@ scan s3 buckets for security issues
 Usage
 =====
 
-python s3scan.py
+    python s3scan.py
 
-No parameters or options right now, just create an s3scan.cfg
+No parameters or options right now, just create and populate s3scan.cfg
 with the following:
 
     [aws]
     access_key = YOUR_KEY_HERE
     access_secret = YOUR_SECRETS_HERE
+
+Requirements
+============
+
+Python 2.6+  -- http://python.org
+Boto Library -- https://github.com/boto/boto
