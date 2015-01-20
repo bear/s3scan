@@ -1,5 +1,5 @@
 """
-:copyright: (c) 2012 by Mike Taylor
+:copyright: (c) 2012-2015 by Mike Taylor
 :license: BSD, see LICENSE for more details.
 
 Usage:
@@ -25,11 +25,11 @@ be loaded and should contain:
 
 """
 
-VERSION = (0, 1, 0, '')
+VERSION = (0, 1, 1, '')
 
 __author__    = 'bear (Mike Taylor)'
 __contact__   = 'bear@bear.im'
-__copyright__ = 'Copyright 2013, Mike Taylor'
+__copyright__ = 'Copyright 2012-2015, Mike Taylor'
 __license__   = 'BSD 2-Clause'
 __site__      = 'https://github.com/bear/s3scan'
 __version__   = u'.'.join(map(str, VERSION[0:3])) + u''.join(VERSION[3:])
