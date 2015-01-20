@@ -41,7 +41,7 @@ import ConfigParser
 from optparse import OptionParser
 from xml.etree import cElementTree as ET
 
-from boto.s3.connection import S3Connection
+from boto.s3.connection import S3Connection, OrdinaryCallingFormat
 
 
 def getConfig():
@@ -72,7 +72,7 @@ def getConfig():
 
 
 def discoverBuckets(api_key, api_secret):
-    c  = S3Connection(api_key, api_secret)
+    c  = S3Connection(api_key, api_secret, calling_format=OrdinaryCallingFormat())
     rs = c.get_all_buckets()
 
     buckets = {}
