@@ -4,7 +4,7 @@
 
 Usage:
 
-  python s3scan.py [-k <api_key>] [-s <api_secret>] [-f <format>]
+  python s3scan.py [-f <format>]
 
 Options:
 
