@@ -30,13 +30,13 @@ import boto3
 def getConfig():
     parser = OptionParser()
     # Read API Key & Secret from Environment...
-    parser.add_option('-f', '--format',  dest='format',  default='text',    help='Output format: text, csv')
-    parser.add_option('-p', '--profile', dest='profile', default='default', help='AWS Profile')
+    parser.add_option('-f', '--format',  dest='format',  default='text', help='Output format: text, csv')
+    parser.add_option('-p', '--profile', dest='profile', default=None,   help='AWS Profile')
     options, args = parser.parse_args()
 
     return options
 
-def discoverBuckets(profile='default'):
+def discoverBuckets(profile=None):
     bs = boto3.session.Session(profile_name=profile)
     s3 = bs.client('s3', config=boto3.session.Config(signature_version='s3v4'))
 

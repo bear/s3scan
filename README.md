@@ -14,7 +14,7 @@ Usage
                        Default is 'text'
                        [Optional]
         -p | --profile AWS Credentials Profile
-                       Default is 'default'
+                       Default is None
                        [Optional]
 
 Where the output format can be either 'text' or 'csv'
