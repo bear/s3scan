@@ -14,7 +14,7 @@ Options:
   Where the output format can be either 'text' or 'csv'
 """
 
-VERSION = (0, 1, 2, '')
+VERSION = (0, 2, 0, '')
 
 __author__    = 'bear (Mike Taylor)'
 __contact__   = 'bear@bear.im'
