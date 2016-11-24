@@ -24,47 +24,46 @@ __site__      = 'https://github.com/bear/s3scan'
 __version__   = u'.'.join(map(str, VERSION[0:3])) + u''.join(VERSION[3:])
 
 
-import os
-import ConfigParser
-import boto3
-
 from optparse import OptionParser
+import boto3
 
 def getConfig():
     parser = OptionParser()
     # Read API Key & Secret from Environment...
-    parser.add_option('-f', '--format', dest='format',     default='text', help='Output format: text, csv')
+    parser.add_option('-f', '--format',  dest='format',  default='text',    help='Output format: text, csv')
+    parser.add_option('-p', '--profile', dest='profile', default='default', help='AWS Profile')
     options, args = parser.parse_args()
 
-    format = options.format
-    return format
+    return options
 
-def discoverBuckets():
-    s3  = boto3.resource('s3')
-    rs = s3.buckets.all()
+def discoverBuckets(profile='default'):
+    bs = boto3.session.Session(profile_name=profile)
+    s3 = bs.client('s3', config=boto3.session.Config(signature_version='s3v4'))
 
-    buckets = {}
-    maxName = 0 #use pprint instead?
+    buckets    = {}
+    maxName    = 0
+    bucketList = s3.list_buckets()
 
-    for b in rs:
-        bucketName          = b.name
+    for b in bucketList['Buckets']:
+        bucketName          = b['Name']
         buckets[bucketName] = {}
 
         #keep track of longest bucketName for textFormat
         if len(bucketName) > maxName:
             maxName = len(bucketName)
 
-        for grant in b.Acl().grants:
+        grants = s3.get_bucket_acl(Bucket=bucketName)
+        for grant in grants['Grants']:
             grantee_name = 'None'
-            grantee_id = 'None'
+            grantee_id   = 'None'
 
             grantee = grant['Grantee']
             if 'DisplayName' in grantee:
                 grantee_name = grantee['DisplayName']
-                grantee_id = grantee['ID']
+                grantee_id   = grantee['ID']
             elif 'URI' in grantee:
                 grantee_name = grantee['URI'].split('/')[-1]
-                grantee_id = grantee['URI']
+                grantee_id   = grantee['URI']
 
             if grantee_name not in buckets[bucketName]:
                 buckets[bucketName][grantee_name] = []
@@ -142,14 +141,14 @@ def textFormat(bucket, maxName):
     return s
 
 if __name__ == '__main__':
-    format = getConfig()
+    options = getConfig()
 
-    buckets, maxName = discoverBuckets()
+    buckets, maxName = discoverBuckets(options.profile)
 
     for key in buckets:
         bucket = buckets[key]
 
-        if format == 'csv':
+        if options.format == 'csv':
             print csvFormat(bucket)
         else:
             print textFormat(bucket, maxName)
