@@ -6,11 +6,15 @@ Generate a report of all s3 buckets and their permissions
 Usage
 =====
 
-    python s3scan.py [-f <format>]
+    python s3scan.py [-f <format>] [-p <profile>]
 
     Options:
 
         -f | --format  Output format
+                       Default is 'text'
+                       [Optional]
+        -p | --profile AWS Credentials Profile
+                       Default is 'default'
                        [Optional]
 
 Where the output format can be either 'text' or 'csv'
@@ -18,7 +22,7 @@ Where the output format can be either 'text' or 'csv'
 Requirements
 ============
 
-Python 2.6+ 
+Python 2.6+
 http://python.org
 
 Boto3 Library
